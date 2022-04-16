@@ -56,15 +56,15 @@ DOMAIN-KEYWORD,zjtoolbar,REJECT
 // others
 
 // user agent rules
-USER-AGENT,*Bilibili*,Proxy
+USER-AGENT,*bilibili*,Proxy
 USER-AGENT,*Netease*,Proxy
 USER-AGENT,*QQMusic*,Proxy
 
 
 // liuk diih mieu
 DOMAIN-KEYWORD,bilibili,Proxy
-DOMAIN-KEYWORD,tencent,Proxy
-DOMAIN-SUFFIX,qq.com,Proxy
+# DOMAIN-KEYWORD,tencent,Proxy
+# DOMAIN-SUFFIX,qq.com,Proxy
 
 // ==== final ====
 FINAL,DIRECT
