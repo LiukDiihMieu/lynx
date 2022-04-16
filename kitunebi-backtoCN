@@ -1,0 +1,113 @@
+// Section names such as "DnsServer", "DnsRule" are all case-insensitive.
+// All empty lines and whitespaces will be omitted, comment lines are
+// start with `//`, inline comments are start with `#`, all characters
+// after `#` will be treated as comments.
+
+
+[Rule]
+// [Rule] is equalient to [RoutingRule]
+// Rules better group by their types (DOMAIN/IP/USER-AGENT)
+// and targets (PROXY/DIRECT/REJECT) for better performance.
+//
+// ==== block rules ====
+//
+// google
+DOMAIN-SUFFIX,doubleclick.net,REJECT
+
+// mieu
+DOMAIN-KEYWORD,admarvel,REJECT
+DOMAIN-KEYWORD,admaster,REJECT
+DOMAIN-KEYWORD,adsage,REJECT
+DOMAIN-KEYWORD,adsmogo,REJECT
+DOMAIN-KEYWORD,adsrvmedia,REJECT
+DOMAIN-KEYWORD,adwords,REJECT
+DOMAIN-KEYWORD,adservice,REJECT
+DOMAIN-KEYWORD,domob,REJECT
+DOMAIN-KEYWORD,duomeng,REJECT
+DOMAIN-KEYWORD,dwtrack,REJECT
+DOMAIN-KEYWORD,guanggao,REJECT
+DOMAIN-KEYWORD,lianmeng,REJECT
+DOMAIN-KEYWORD,omgmta,REJECT
+DOMAIN-KEYWORD,openx,REJECT
+DOMAIN-KEYWORD,partnerad,REJECT
+DOMAIN-KEYWORD,pingfore,REJECT
+DOMAIN-KEYWORD,supersonicads,REJECT
+DOMAIN-KEYWORD,tracking,REJECT
+DOMAIN-KEYWORD,uedas,REJECT
+DOMAIN-KEYWORD,umeng,REJECT
+DOMAIN-KEYWORD,usage,REJECT
+DOMAIN-KEYWORD,wlmonitor,REJECT
+DOMAIN-KEYWORD,zjtoolbar,REJECT
+
+// ==== prioritized proxy rules ====
+
+
+// ==== direct rules ====
+//
+// ip rules
+# GEOIP,cn,DIRECT
+# GEOIP,private,DIRECT
+
+
+// ==== proxy rules ====
+//
+// ip rules
+// telegram
+// others
+
+// user agent rules
+USER-AGENT,*Bilibili*,Proxy
+USER-AGENT,*Netease*,Proxy
+USER-AGENT,*QQMusic*,Proxy
+
+
+// liuk diih mieu
+DOMAIN-KEYWORD,bilibili,Proxy
+DOMAIN-KEYWORD,tencent,Proxy
+DOMAIN-SUFFIX,qq.com,Proxy
+
+// ==== final ====
+FINAL,DIRECT
+
+
+[DnsServer]
+// Format: address,port,tag
+//
+// `tag` is a unique alphanumeric string for each DNS server, it's used for
+// identifying DNS servers by DNS domain rules, it's case-insensitive. `tag`s are
+// only help in the configuration parsing procedure, and won't be used elsewhere.
+//
+// `port` and `tag` could be omitted, means that using the default 53 port
+// and no DNS rules attach to that DNS server.
+//
+// A DNS lookup will perform on DNS servers list below in order until results
+// return, except there is a matching domain rule.
+
+8.8.8.8,53,REMOTE
+8.8.4.4
+223.5.5.5
+114.114.114.114
+
+[DnsRule]
+// DNS requests for domain names which match these rules will send to the DNS
+// server with the corresponding tag name first, i.e. DNS server with the matched
+// tag has the highest priority.
+
+// Remote dns
+# DOMAIN-KEYWORD,facebook,REMOTE
+
+[DnsHost]
+// Static DNS map that functions in the same way as /etc/hosts.
+
+localhost=127.0.0.1
+www.localnetwork.uop=127.0.0.1
+
+[DnsClientIp]
+// Client IP for EDNS Client Subnet extension, a single IP address.
+
+115.239.211.92
+
+[RoutingDomainStrategy]
+// https://www.v2ray.com/chapter_02/03_routing.html
+
+IPIfNonMatch
